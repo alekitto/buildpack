@@ -92,6 +92,16 @@ target "build-test" {
   context  = "./test/${TAG}"
 }
 
+target "build-multiplatform" {
+  inherits = ["settings", "cache", "multiplatform"]
+  tags = [
+    "ghcr.io/${OWNER}/${FILE}",
+    "ghcr.io/${OWNER}/${FILE}:${TAG}",
+    "${OWNER}/${FILE}:${TAG}",
+    "${OWNER}/${FILE}",
+  ]
+}
+
 target "push-ghcr" {
   inherits = ["settings", "cache", "multiplatform"]
   output   = ["type=registry"]
