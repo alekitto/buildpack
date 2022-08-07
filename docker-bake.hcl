@@ -50,6 +50,10 @@ target "settings" {
   }
 }
 
+target "multiplatform" {
+  platforms = ["linux/amd64", "linux/arm64"]
+}
+
 target "cache" {
   cache-from = [
     "type=registry,ref=ghcr.io/${OWNER}/cache:${FILE}",
@@ -58,7 +62,7 @@ target "cache" {
 }
 
 target "push-cache" {
-  inherits = ["settings", "cache"]
+  inherits = ["settings", "cache", "multiplatform"]
   output   = ["type=registry"]
   tags = [
     "ghcr.io/${OWNER}/cache:${FILE}-${TAG}",
@@ -89,7 +93,7 @@ target "build-test" {
 }
 
 target "push-ghcr" {
-  inherits = ["settings", "cache"]
+  inherits = ["settings", "cache", "multiplatform"]
   output   = ["type=registry"]
   tags = [
     "ghcr.io/${OWNER}/${FILE}",
@@ -98,7 +102,7 @@ target "push-ghcr" {
 }
 
 target "push-hub" {
-  inherits = ["settings", "cache"]
+  inherits = ["settings", "cache", "multiplatform"]
   output   = ["type=registry"]
   tags     = ["${OWNER}/${FILE}", "${OWNER}/${FILE}:${TAG}"]
 }
