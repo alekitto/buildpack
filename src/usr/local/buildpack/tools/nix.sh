@@ -17,7 +17,7 @@ installer_options=(
   --nix-extra-conf-file /tmp/nixd.conf
 )
 
-curl -sSL "https://nixos.org/releases/nix/nix-${TOOL_VERSION}/nix-${TOOL_VERSION}-x86_64-linux.tar.xz" --output nix.txz
+curl -sSL "https://nixos.org/releases/nix/nix-${TOOL_VERSION}/nix-${TOOL_VERSION}-$(uname -m)-linux.tar.xz" --output nix.txz
 tar xJf nix.txz
 rm nix.txz
 
@@ -29,10 +29,10 @@ mkdir -m 0755 /nix
 chown -R "${USER_ID}" /nix
 
 
-su "${USER_NAME}" -c "./nix-${TOOL_VERSION}-x86_64-linux/install ${installer_options[*]}"
+su "${USER_NAME}" -c "./nix-${TOOL_VERSION}-$(uname -m)-linux/install ${installer_options[*]}"
 ln -s /nix/var/nix/profiles/default/etc/profile.d/nix.sh /etc/profile.d/
 
-rm -r nix-"${TOOL_VERSION}"-x86_64-linux*
+rm -r nix-"${TOOL_VERSION}"-$(uname -m)-linux*
 
 export_path "${USER_HOME}/.nix-profile/bin"
 export_env NIX_PATH "/nix/var/nix/profiles/per-user/${USER_NAME}/channels"

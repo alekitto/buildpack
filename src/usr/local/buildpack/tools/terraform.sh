@@ -21,7 +21,13 @@ if [[ -z "${tool_path}" ]]; then
 
   file=/tmp/${TOOL_NAME}.tgz
 
-  DISTRO=linux_amd64
+  DISTRO=linux_$(uname -m)
+  if [ "$DISTRO" == "linux_x86_64" ]; then
+    DISTRO="linux_amd64"
+  elif [ "$DISTRO" == "linux-aarch64" ]; then
+    DISTRO="linux_arm64"
+  fi
+
   curl -sSfLo "${file}" "https://releases.hashicorp.com/terraform/${TOOL_VERSION}/terraform_${TOOL_VERSION}_${DISTRO}.zip"
   unzip -q -d "${tool_path}/bin" "${file}"
   rm "${file}"

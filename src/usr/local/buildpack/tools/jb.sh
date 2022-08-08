@@ -22,7 +22,14 @@ if [[ -z "${tool_path}" ]]; then
   # https://github.com/jsonnet-bundler/jsonnet-bundler/releases/download/v0.4.0/jb-linux-amd64
   URL='https://github.com'
 
-  curl -sSfLo "${tool_path}/bin/${TOOL_NAME}" "${URL}/jsonnet-bundler/jsonnet-bundler/releases/download/v${TOOL_VERSION}/${TOOL_NAME}-linux-amd64"
+  ARCH=$(uname -m)
+  if [ "$ARCH" == "x86_64" ]; then
+    ARCH="amd64"
+  elif [ "$ARCH" == "aarch64" ]; then
+    ARCH="arm64"
+  fi
+
+  curl -sSfLo "${tool_path}/bin/${TOOL_NAME}" "${URL}/jsonnet-bundler/jsonnet-bundler/releases/download/v${TOOL_VERSION}/${TOOL_NAME}-linux-${ARCH}"
 
   chmod +x "${tool_path}/bin/${TOOL_NAME}"
 fi

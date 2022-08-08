@@ -16,11 +16,11 @@ tool_path=$base_path/$TOOL_VERSION
 
 if [[ ! -d "${tool_path}" ]]; then
   mkdir -p "$base_path"
-  curl -sSfLo rust.tar.gz "https://static.rust-lang.org/dist/rust-${TOOL_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+  curl -sSfLo rust.tar.gz "https://static.rust-lang.org/dist/rust-${TOOL_VERSION}-$(uname -m)-unknown-linux-gnu.tar.gz"
   mkdir rust
   pushd rust
   tar --strip 1 -xf ../rust.tar.gz
-  ./install.sh --prefix="$tool_path" --components=cargo,rust-std-x86_64-unknown-linux-gnu,rustc
+  ./install.sh --prefix="$tool_path" --components=cargo,rust-std-$(uname -m)-unknown-linux-gnu,rustc
   popd
   rm rust.tar.gz
   rm -rf rust

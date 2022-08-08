@@ -23,11 +23,18 @@ if [[ ! -d "$tool_path" ]]; then
     GOLANG_FILE_VERSION="${MAJOR}.${MINOR}"
   fi
 
+  ARCH=$(uname -m)
+  if [ "$ARCH" == "x86_64" ]; then
+    ARCH="amd64"
+  elif [ "$ARCH" == "aarch64" ]; then
+    ARCH="arm64"
+  fi
+
   # go suggests: git svn bzr mercurial
   apt_install bzr mercurial
 
   mkdir -p "$tool_path"
-  curl -sSL "https://dl.google.com/go/go${GOLANG_FILE_VERSION}.linux-amd64.tar.gz" --output go.tgz
+  curl -sSL "https://dl.google.com/go/go${GOLANG_FILE_VERSION}.linux-${ARCH}.tar.gz" --output go.tgz
   tar --strip 1 -C "$tool_path" -xzf go.tgz
   rm go.tgz
 

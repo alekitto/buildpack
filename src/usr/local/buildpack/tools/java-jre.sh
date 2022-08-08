@@ -28,7 +28,11 @@ if [[ -z "${tool_path}" ]]; then
 
   file=/tmp/java.tgz
 
-  ARCH=x64
+  ARCH=$(uname -m)
+  if [ "$ARCH" == "x86_64" ]; then
+    ARCH="x64"
+  fi
+
   URL=https://api.adoptium.net/v3/assets/version
   API_ARGS='heap_size=normal&image_type=jre&os=linux&page=0&page_size=1&project=jdk&vendor=adoptium'
 

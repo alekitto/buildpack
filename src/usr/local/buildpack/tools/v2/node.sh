@@ -50,8 +50,15 @@ function install_tool () {
 
   npm=${versioned_tool_path}/bin/npm
 
+  ARCH=$(uname -m)
+  if [ "$ARCH" == "x86_64" ]; then
+    ARCH="x64"
+  elif [ "$ARCH" == "aarch64" ]; then
+    ARCH="arm64"
+  fi
+
   # download file
-  file=$(get_from_url "https://nodejs.org/dist/v${TOOL_VERSION}/node-v${TOOL_VERSION}-linux-x64.tar.xz")
+  file=$(get_from_url "https://nodejs.org/dist/v${TOOL_VERSION}/node-v${TOOL_VERSION}-linux-${ARCH}.tar.xz")
   # extract
   tar -C "${versioned_tool_path}" --strip 1 -xf "${file}"
 
