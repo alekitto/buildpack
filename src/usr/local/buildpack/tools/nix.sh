@@ -32,7 +32,7 @@ chown -R "${USER_ID}" /nix
 su "${USER_NAME}" -c "./nix-${TOOL_VERSION}-$(uname -m)-linux/install ${installer_options[*]}"
 ln -s /nix/var/nix/profiles/default/etc/profile.d/nix.sh /etc/profile.d/
 
-rm -r nix-"${TOOL_VERSION}"-$(uname -m)-linux*
+rm -r nix-"${TOOL_VERSION}-$(uname -m)"-linux*
 
 export_path "${USER_HOME}/.nix-profile/bin"
 export_env NIX_PATH "/nix/var/nix/profiles/per-user/${USER_NAME}/channels"

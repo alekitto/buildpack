@@ -5,7 +5,8 @@ function install_tool () {
   versioned_tool_path=$(create_versioned_tool_path)
 
   local file
-  local ARCH=$(uname -m)
+  local ARCH
+  ARCH="$(uname -m)"
   if [ "$ARCH" == "x86_64" ]; then
     ARCH="amd64"
   elif [ "$ARCH" == "linux-aarch64" ]; then

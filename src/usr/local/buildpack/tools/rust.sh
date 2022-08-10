@@ -20,7 +20,7 @@ if [[ ! -d "${tool_path}" ]]; then
   mkdir rust
   pushd rust
   tar --strip 1 -xf ../rust.tar.gz
-  ./install.sh --prefix="$tool_path" --components=cargo,rust-std-$(uname -m)-unknown-linux-gnu,rustc
+  ./install.sh --prefix="$tool_path" "--components=cargo,rust-std-$(uname -m)-unknown-linux-gnu,rustc"
   popd
   rm rust.tar.gz
   rm -rf rust
