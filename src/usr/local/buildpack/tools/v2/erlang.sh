@@ -61,7 +61,7 @@ function install_tool () {
   fi
 
   ARCH=$(uname -p)
-  BASE_URL="https://github.com/containerbase/${TOOL_NAME}-prebuild/releases/download"
+  BASE_URL="https://github.com/alekitto/${TOOL_NAME}-prebuild/releases/download"
   version_codename=$(get_distro)
 
   file=$(get_from_url "${BASE_URL}/${TOOL_VERSION}/${TOOL_NAME}-${TOOL_VERSION}-${version_codename}-${ARCH}.tar.xz")

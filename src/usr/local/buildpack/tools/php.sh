@@ -22,7 +22,7 @@ if [[ -z "${tool_path}" ]]; then
   file=/tmp/php.tar.xz
 
   ARCH=$(uname -p)
-  BASE_URL="https://github.com/containerbase/php-prebuild/releases/download"
+  BASE_URL="https://github.com/alekitto/php-prebuild/releases/download"
 
   version_codename=$(get_distro)
 

@@ -19,7 +19,7 @@ if [[ ! -d "$tool_path" ]]; then
   mkdir -p "$base_path"
 
   ARCH=$(uname -p)
-  RUBY_URL="https://github.com/containerbase/ruby-prebuild/releases/download"
+  RUBY_URL="https://github.com/alekitto/ruby-prebuild/releases/download"
 
   version_codename=$(get_distro)
 
