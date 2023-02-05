@@ -40,6 +40,9 @@ function install_tool () {
   local versioned_tool_path
   local npm # temp npm executable
   local arch=linux-x64
+  if [[ "$(uname -p)" = "aarch64" ]]; then
+    arch=linux-arm64
+  fi
 
   checksums=$(get_from_url "https://nodejs.org/dist/v${TOOL_VERSION}/SHASUMS256.txt")
 
