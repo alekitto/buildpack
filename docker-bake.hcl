@@ -2,7 +2,7 @@ variable "OWNER" {
   default = "containerbase"
 }
 variable "FILE" {
-  default = "base"
+  default = "buildpack"
 }
 variable "TAG" {
   default = "latest"
@@ -32,7 +32,7 @@ group "default" {
 }
 
 group "push" {
-  targets = ["push-ghcr", "push-hub", "push-legacy", "push-cache"]
+  targets = ["push-ghcr", "push-cache"]
 }
 
 group "test" {
@@ -62,8 +62,9 @@ target "cache" {
 }
 
 target "push-cache" {
-  inherits = ["settings", "cache"]
-  output   = ["type=registry"]
+  inherits  = ["settings", "cache"]
+  output    = ["type=registry"]
+  platforms = ["linux/amd64", "linux/arm64"]
   tags = [
     "ghcr.io/${OWNER}/cache:${FILE}-${TAG}",
     "ghcr.io/${OWNER}/cache:${FILE}",
@@ -77,8 +78,6 @@ target "build-docker" {
   tags = [
     "ghcr.io/${OWNER}/${FILE}",
     "ghcr.io/${OWNER}/${FILE}:${TAG}",
-    "${OWNER}/${FILE}:${TAG}",
-    "${OWNER}/${FILE}",
   ]
 }
 
@@ -99,28 +98,11 @@ target "test-arm64" {
 }
 
 target "push-ghcr" {
-  inherits = ["settings", "cache"]
-  output   = ["type=registry"]
+  inherits  = ["settings", "cache"]
+  output    = ["type=registry"]
+  platforms = ["linux/amd64", "linux/arm64"]
   tags = [
     "ghcr.io/${OWNER}/${FILE}",
     "ghcr.io/${OWNER}/${FILE}:${TAG}",
-  ]
-}
-
-target "push-hub" {
-  inherits = ["settings", "cache"]
-  output   = ["type=registry"]
-  tags     = ["${OWNER}/${FILE}", "${OWNER}/${FILE}:${TAG}"]
-}
-
-// TODO: remove on next major
-target "push-legacy" {
-  inherits = ["settings", "cache"]
-  output   = ["type=registry"]
-  tags = [
-    "ghcr.io/${OWNER}/buildpack",
-    "ghcr.io/${OWNER}/buildpack:${TAG}",
-    "${OWNER}/buildpack",
-    "${OWNER}/buildpack:${TAG}"
   ]
 }

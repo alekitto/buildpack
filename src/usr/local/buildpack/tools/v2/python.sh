@@ -48,7 +48,7 @@ function install_tool () {
 
   versioned_tool_path=$(create_versioned_tool_path)
   arch=$(uname -p)
-  url="https://github.com/containerbase/python-prebuild/releases/download"
+  url="https://github.com/late-night-dev/python-prebuild/releases/download"
   version_codename=$(get_distro)
 
   create_folder "${versioned_tool_path}/bin"
